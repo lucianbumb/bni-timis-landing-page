@@ -572,60 +572,71 @@ section.hero{
 
 /* Booking Section */
 .booking-section {
-    padding: var(--spacing-xxl) 0;
+    padding: var(--spacing-md) 0;
     background: linear-gradient(135deg, var(--cream), var(--white));
+    min-height: 90svh;
+    display: flex;
+    align-items: center;
 }
 
 .booking-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap:3rem;
-  height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .booking-header {
     text-align: center;
-    margin-bottom: var(--spacing-xl);
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap:2rem;
+    margin-bottom: var(--spacing-sm);
+    width: 100%;
+}
 
-    h3{
-        font-size: 2rem;
-        color: var(--primary-red);
-        margin-bottom: var(--spacing-sm);
-    }
+.booking-header .section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
 
-    li{
-        text-align: left;
-        line-height: 2;
-    }
+.booking-header .section-header .section-title {
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+    font-size: 2.2rem;
+}
+
+.booking-header .section-header .section-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.booking-header h3 {
+    font-size: 2rem;
+    color: var(--primary-red);
+    margin-bottom: var(--spacing-sm);
+}
+
+.booking-header li {
+    text-align: left;
+    line-height: 1.6;
 }
 
 .booking-subtitle {
     font-size: 1.1rem;
     color: var(--gray-dark);
-    line-height: 1.8;
-    margin-top: var(--spacing-md);
+    line-height: 1.6;
+    margin-top: var(--spacing-sm);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Registration Steps Styling */
+/* Registration Steps Styling - Horizontal Layout */
 .section-body {
     width: 100%;
-    max-width: 600px;
     margin: 0 auto;
-}
-
-.section-body h3 {
-    font-size: 2rem;
-    color: var(--primary-red);
-    margin-bottom: var(--spacing-lg);
-    text-align: center;
-    font-family: var(--font-heading);
 }
 
 .registration-steps {
@@ -633,36 +644,39 @@ section.hero{
     padding: 0;
     margin: 0;
     counter-reset: step-counter;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-bottom: var(--spacing-md);
 }
 
 .registration-steps li {
     position: relative;
-    padding: var(--spacing-md) var(--spacing-md) var(--spacing-md) 4rem;
-    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-sm);
     background: var(--white);
-    border-radius: 15px;
+    border-radius: 12px;
     box-shadow: var(--shadow-light);
-    border-left: 4px solid var(--primary-orange);
     counter-increment: step-counter;
     transition: var(--transition);
-    text-align: left;
-    line-height: 1.6;
+    text-align: center;
+    border-top: 3px solid var(--primary-orange);
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .registration-steps li:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     box-shadow: var(--shadow-medium);
-    border-left-color: var(--primary-red);
+    border-top-color: var(--primary-red);
 }
 
 .registration-steps li::before {
     content: counter(step-counter);
-    position: absolute;
-    left: var(--spacing-sm);
-    top: 50%;
-    transform: translateY(-50%);
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
     background: linear-gradient(135deg, var(--primary-orange), var(--primary-gold));
     color: var(--white);
     border-radius: 50%;
@@ -670,39 +684,42 @@ section.hero{
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     box-shadow: var(--shadow-light);
+    margin-bottom: var(--spacing-xs);
 }
 
 .registration-steps li .step-title {
     font-weight: 600;
     color: var(--primary-red);
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     margin-bottom: var(--spacing-xs);
     display: block;
+    line-height: 1.2;
 }
 
 .registration-steps li .step-description {
     color: var(--gray-dark);
-    font-size: 0.95rem;
-    line-height: 1.5;
+    font-size: 0.8rem;
+    line-height: 1.3;
+    text-align: center;
 }
 
 .booking-form-container {
     background: var(--white);
-    padding: var(--spacing-xl);
+    padding: var(--spacing-lg);
     border-radius: 20px;
     box-shadow: var(--shadow-medium);
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .booking-form {
     display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: var(--spacing-md);
+    align-items: start;
 }
 
 .form-group {
@@ -734,7 +751,8 @@ section.hero{
 }
 
 .form-submit {
-    margin-top: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+    grid-column: 1 / -1;
     justify-self: center;
     width: 100%;
     max-width: 300px;
@@ -744,8 +762,9 @@ section.hero{
     text-align: center;
     font-size: 0.9rem;
     color: var(--gray-medium);
-    margin-top: var(--spacing-md);
+    margin-top: var(--spacing-sm);
     line-height: 1.6;
+    grid-column: 1 / -1;
 }
 
 /* Footer */
@@ -943,6 +962,13 @@ section.hero{
     
     .booking-form-container {
         padding: var(--spacing-md);
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .booking-section {
+        padding: var(--spacing-md) 0;
     }
     
     /* Registration Steps Responsive */
@@ -1027,31 +1053,36 @@ section.hero{
     
     .booking-form-container {
         padding: var(--spacing-sm);
+        width: 100%;
     }
     
-    /* Registration Steps Small Mobile */
-    .section-body h3 {
+    .booking-section {
+        padding: var(--spacing-xs) 0;
+        min-height: auto;
+    }
+    
+    .booking-header .section-header .section-title {
         font-size: 1.6rem;
     }
     
+    /* Registration Steps remain stacked vertically */
     .registration-steps li {
-        padding: var(--spacing-sm) var(--spacing-xs) var(--spacing-sm) 3rem;
-        margin-bottom: var(--spacing-sm);
+        padding: var(--spacing-xs);
+        min-height: auto;
     }
     
     .registration-steps li::before {
-        width: 1.8rem;
-        height: 1.8rem;
-        font-size: 0.9rem;
-        left: var(--spacing-xs);
+        width: 1.6rem;
+        height: 1.6rem;
+        font-size: 0.8rem;
     }
     
     .registration-steps li .step-title {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
     
     .registration-steps li .step-description {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
 }
 
@@ -1315,17 +1346,61 @@ html {
     section{
         height: auto;
     }
-    .booking-content{
-        height: auto;
-        display: flex;
-        flex-direction: column;
+    .booking-section {
+        padding: var(--spacing-sm) 0;
+        min-height: auto;
     }
-    .booking-header{
-        padding: 1rem;
+    
+    .booking-content{
+        gap: 1.5rem;
+    }
+    
+    .booking-header .section-header .section-title {
+        font-size: 1.8rem;
+    }
 
-        li{
-            padding: 1ch;
-        }
+    .booking-form-container {
+        padding: var(--spacing-md);
+        width: 100%;
+    }
+    
+    .booking-form {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+    
+    /* Registration Steps Responsive - Stack vertically on mobile */
+    .registration-steps {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+    
+    .registration-steps li {
+        min-height: auto;
+        padding: var(--spacing-sm);
+        text-align: left;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+    
+    .registration-steps li::before {
+        width: 1.8rem;
+        height: 1.8rem;
+        font-size: 0.9rem;
+        margin-bottom: 0;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+    
+    .registration-steps li .step-title {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .registration-steps li .step-description {
+        font-size: 0.9rem;
+        text-align: left;
     }
 
     .row{
