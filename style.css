@@ -705,24 +705,222 @@ section.hero{
     text-align: center;
 }
 
-.booking-form-container {
+/* Payment Container Styling */
+.payment-container {
     background: var(--white);
     padding: var(--spacing-lg);
     border-radius: 20px;
     box-shadow: var(--shadow-medium);
     width: 100%;
-    max-width: 800px;
+    max-width: 600px;
     margin: 0 auto;
 }
 
-.booking-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-md);
-    align-items: start;
+.payment-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    align-items: center;
 }
 
-.form-group {
+.pricing-card {
+    background: linear-gradient(135deg, var(--cream), var(--white));
+    border: 2px solid var(--primary-orange);
+    border-radius: 15px;
+    padding: var(--spacing-lg);
+    width: 100%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.pricing-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-orange), var(--primary-gold));
+}
+
+.price-header h3 {
+    color: var(--primary-red);
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.price-amount {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.currency {
+    font-size: 1rem;
+    color: var(--gray-medium);
+    font-weight: 500;
+}
+
+.price {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-red);
+    line-height: 1;
+}
+
+.period {
+    font-size: 1rem;
+    color: var(--gray-medium);
+    font-weight: 500;
+}
+
+.price-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xs);
+}
+
+.price-features li {
+    color: var(--gray-dark);
+    font-size: 0.95rem;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.price-note {
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid rgba(196, 30, 58, 0.2);
+}
+
+.price-note p {
+    font-size: 0.9rem;
+    color: var(--gray-dark);
+    margin-bottom: var(--spacing-xs);
+}
+
+.countdown-note {
+    color: var(--primary-red) !important;
+    font-weight: 600 !important;
+}
+
+.payment-action {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: center;
+}
+
+.btn-payment {
+    background: linear-gradient(135deg, #2E8B57, #228B22);
+    color: var(--white);
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    transition: var(--transition);
+    box-shadow: var(--shadow-medium);
+    position: relative;
+    overflow: hidden;
+    min-width: 280px;
+    justify-content: center;
+}
+
+.btn-payment:hover {
+    background: linear-gradient(135deg, #228B22, #1F5F1F);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-heavy);
+    color: var(--white);
+}
+
+.btn-payment::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-payment:hover::before {
+    left: 100%;
+}
+
+.payment-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.payment-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+}
+
+.payment-main {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.payment-sub {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    font-weight: 400;
+}
+
+.security-badges {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.security-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--gray-medium);
+}
+
+    .security-item svg {
+        width: 16px;
+        height: 16px;
+        color: var(--primary-orange);
+    }
+    
+    /* Countdown Timer Styling */
+    .countdown-timer {
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        100% { transform: scale(1); }
+    }
+    
+    .event-reminder {
+        color: var(--primary-orange) !important;
+        font-weight: 600 !important;
+    }.form-group {
     display: flex;
     flex-direction: column;
 }
@@ -751,7 +949,7 @@ section.hero{
 }
 
 .form-submit {
-    margin-top: var(--spacing-sm);
+    margin-top: 1rem;
     grid-column: 1 / -1;
     justify-self: center;
     width: 100%;
@@ -762,8 +960,8 @@ section.hero{
     text-align: center;
     font-size: 0.9rem;
     color: var(--gray-medium);
-    margin-top: var(--spacing-sm);
-    line-height: 1.6;
+    margin-top: 1ch;
+    line-height: 1.3;
     grid-column: 1 / -1;
 }
 
@@ -960,11 +1158,40 @@ section.hero{
         gap: var(--spacing-md);
     }
     
-    .booking-form-container {
+    .payment-container {
         padding: var(--spacing-md);
         width: 100%;
         max-width: 500px;
         margin: 0 auto;
+    }
+    
+    .pricing-card {
+        padding: var(--spacing-md);
+    }
+    
+    .price-amount {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .price {
+        font-size: 2.5rem;
+    }
+    
+    .price-features ul {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xs);
+    }
+    
+    .btn-payment {
+        min-width: auto;
+        width: 100%;
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .security-badges {
+        flex-direction: column;
+        gap: var(--spacing-sm);
     }
     
     .booking-section {
@@ -1051,9 +1278,22 @@ section.hero{
         padding: var(--spacing-md);
     }
     
-    .booking-form-container {
+    .payment-container {
         padding: var(--spacing-sm);
         width: 100%;
+    }
+    
+    .pricing-card {
+        padding: var(--spacing-sm);
+    }
+    
+    .price {
+        font-size: 2.2rem;
+    }
+    
+    .btn-payment {
+        font-size: 1rem;
+        padding: var(--spacing-sm);
     }
     
     .booking-section {

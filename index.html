@@ -341,16 +341,16 @@
                     <div class="section-body">
                         <ol class="registration-steps">
                             <li>
-                                <span class="step-title">Completează formularul</span>
-                                <span class="step-description">Alege numărul de bilete (1 bilet = 1 persoană) și completează datele tale în formularul de mai jos.</span>
+                                <span class="step-title">Accesează plata online</span>
+                                <span class="step-description">Apasă pe butonul de mai jos pentru a fi redirecționat către platforma de plată Netopia securizată.</span>
                             </li>
                             <li>
-                                <span class="step-title">Confirmare și redirecționare</span>
-                                <span class="step-description">După ce apeși "Trimite rezervarea", vei fi redirecționat către pagina unde poți face plata prin transfer bancar.</span>
+                                <span class="step-title">Completează plata</span>
+                                <span class="step-description">Urmează instrucțiunile pe site-ul Netopia pentru a efectua plata în siguranță cu cardul sau transfer bancar.</span>
                             </li>
                             <li>
-                                <span class="step-title">Efectuează plata</span>
-                                <span class="step-description">Urmează instrucțiunile pentru transfer bancar. Plata este de 180 lei per persoană pentru early booking.</span>
+                                <span class="step-title">Plată și confirmare</span>
+                                <span class="step-description">După plata cu succes, vei primi automat biletul de intrare pe email și confirmarea participării.</span>
                             </li>
                             <li>
                                 <span class="step-title">Primești confirmarea</span>
@@ -364,37 +364,67 @@
                     </div>
                 </div>
                 
-                <div class="booking-form-container">
-                    <form class="booking-form" id="bookingForm">
-                        <div class="form-group">
-                            <label for="name">Nume complet *</label>
-                            <input type="text" id="name" name="name" placeholder="Introdu numele complet" required>
+                <div class="payment-container">
+                    <div class="payment-info">
+                        <div class="pricing-card">
+                            <div class="price-header">
+                                <h3 id="priceTitle">Early Booking</h3>
+                                <div class="price-amount">
+                                    <span class="currency">RON</span>
+                                    <span class="price" id="currentPrice">180</span>
+                                    <span class="period">/ bilet</span>
+                                </div>
+                            </div>
+                            <div class="price-features">
+                                <ul>
+                                    <li>✓ Acces complet la eveniment</li>
+                                    <li>✓ Networking cu antreprenori</li>
+                                    <li>✓ Cocktail și aperitive</li>
+                                    <li>✓ Materiale BNI exclusive</li>
+                                </ul>
+                            </div>
+                            <div class="price-note" id="priceNote">
+                                <p>Preț valabil până pe <strong>7 octombrie 2025, 23:59</strong></p>
+                                <p class="countdown-note">După această dată: <strong>240 RON / bilet</strong></p>
+                            </div>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="email">Email *</label>
-                            <input type="email" id="email" placeholder="Introdu email-ul" name="email" required>
+                        <div class="payment-action">
+                            <a href="#" id="paymentLink" class="btn btn-payment" target="_blank" rel="noopener">
+                                <svg class="payment-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                                    <line x1="2" y1="10" x2="22" y2="10" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span class="payment-text">
+                                    <span class="payment-main">Plătește cu Netopia</span>
+                                    <span class="payment-sub">Securizat și rapid</span>
+                                </span>
+                            </a>
+                            
+                            <div class="security-badges">
+                                <div class="security-item">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/>
+                                        <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                    <span>Plată securizată</span>
+                                </div>
+                                <div class="security-item">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                    <span>Card sau transfer</span>
+                                </div>
+                                <div class="security-item">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2"/>
+                                        <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                    <span>Confirmare instant</span>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">Telefon *</label>
-                            <input type="tel" id="phone" placeholder="Introdu telefonul" name="phone" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="tickets">Numărul de bilete</label>
-                            <input type="number" id="tickets" name="tickets" value="1" required/>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-cta form-submit">
-                            Trimite rezervarea
-                        </button>
-                        
-                        <p class="form-note">
-                            Early booking: 180 lei. Locurile sunt limitate.<br>
-                            Vei primi confirmarea pe email în maximum 24 de ore.
-                        </p>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

@@ -93,209 +93,187 @@ document.addEventListener('DOMContentLoaded', function() {
         }, observerOptions);
         
         // Observe elements for animation
-        const animateElements = document.querySelectorAll('.benefit-card, .detail-card, .promo-content, .booking-form-container');
+        const animateElements = document.querySelectorAll('.benefit-card, .detail-card, .promo-content, .payment-container');
         animateElements.forEach(element => {
             observer.observe(element);
         });
     }
     
-    // ==================== FORM HANDLING ====================
+    // ==================== PAYMENT SYSTEM ====================
     
-    function initBookingForm() {
-        const form = document.getElementById('bookingForm');
-        const submitBtn = form.querySelector('.form-submit');
+    function initPaymentSystem() {
+        // Payment configuration
+        const PAYMENT_CONFIG = {
+            earlyBooking: {
+                price: 180,
+                link: 'https://mpy.ro/7q3g5nght?language=ro',
+                deadline: new Date('2025-10-07T23:59:00+03:00') // 7 Oct 2025, 23:59 Romanian time
+            },
+            regularBooking: {
+                price: 240,
+                link: 'https://mpy.ro/7q3g5nhht?language=ro'
+            }
+        };
         
-        if (!form) return;
+        // Get payment elements
+        const paymentLink = document.getElementById('paymentLink');
+        const currentPrice = document.getElementById('currentPrice');
+        const priceTitle = document.getElementById('priceTitle');
+        const priceNote = document.getElementById('priceNote');
         
-        // Form validation
-        function validateForm() {
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            
-            const errors = [];
-            
-            // Validate name
-            if (name.length < 2) {
-                errors.push('Numele trebuie să conțină cel puțin 2 caractere.');
-            }
-            
-            // Validate email
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                errors.push('Te rog să introduci o adresă de email validă.');
-            }
-            
-            // Validate phone
-            const phoneRegex = /^[\d\s\+\-\(\)]{8,}$/;
-            if (!phoneRegex.test(phone)) {
-                errors.push('Te rog să introduci un număr de telefon valid.');
-            }
-            
-            return errors;
+        if (!paymentLink || !currentPrice || !priceTitle || !priceNote) {
+            console.error('Payment elements not found');
+            return;
         }
         
-        // Show validation errors
-        function showErrors(errors) {
-            // Remove existing error messages
-            const existingErrors = document.querySelectorAll('.form-error');
-            existingErrors.forEach(error => error.remove());
+        // Update payment info based on current date
+        function updatePaymentInfo() {
+            const now = new Date();
+            const isEarlyBooking = now < PAYMENT_CONFIG.earlyBooking.deadline;
             
-            if (errors.length > 0) {
-                const errorContainer = document.createElement('div');
-                errorContainer.className = 'form-error';
-                errorContainer.style.cssText = `
-                    background: #ffebee;
-                    border: 1px solid #f44336;
-                    border-radius: 8px;
-                    padding: 15px;
-                    margin: 15px 0;
-                    color: #c62828;
-                    font-size: 0.9rem;
+            if (isEarlyBooking) {
+                // Early booking period
+                paymentLink.href = PAYMENT_CONFIG.earlyBooking.link;
+                currentPrice.textContent = PAYMENT_CONFIG.earlyBooking.price;
+                priceTitle.textContent = 'Early Booking';
+                
+                priceNote.innerHTML = `
+                    <p>Preț valabil până pe <strong>7 octombrie 2025, 23:59</strong></p>
+                    <p class="countdown-note">După această dată: <strong>240 RON / bilet</strong></p>
                 `;
                 
-                errorContainer.innerHTML = `
-                    <strong>Te rog să corectezi următoarele erori:</strong>
-                    <ul style="margin: 10px 0 0 20px;">
-                        ${errors.map(error => `<li>${error}</li>`).join('')}
-                    </ul>
-                `;
+                // Add countdown
+                initCountdown();
                 
-                form.insertBefore(errorContainer, submitBtn);
-                
-                // Scroll to errors
-                errorContainer.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-            }
-        }
-        
-        // Show success message
-        function showSuccess() {
-            const successContainer = document.createElement('div');
-            successContainer.className = 'form-success';
-            successContainer.style.cssText = `
-                background: #e8f5e8;
-                border: 1px solid #4caf50;
-                border-radius: 8px;
-                padding: 20px;
-                margin: 15px 0;
-                color: #2e7d32;
-                text-align: center;
-                font-weight: 500;
-            `;
-            
-            successContainer.innerHTML = `
-                <div style="font-size: 1.1rem; margin-bottom: 10px;">
-                    ✅ Rezervarea ta a fost trimisă cu succes!
-                </div>
-                <div style="font-size: 0.9rem;">
-                    Vei primi confirmarea pe email în maximum 24 de ore.<br>
-                    Ne vedem pe 9 octombrie la Valery!
-                </div>
-            `;
-            
-            form.replaceWith(successContainer);
-            
-            // Scroll to success message
-            successContainer.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            });
-        }
-        
-        // Loading state
-        function setLoadingState(loading) {
-            if (loading) {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = `
-                    <span style="display: inline-flex; align-items: center;">
-                        <span style="margin-right: 8px;">Se trimite...</span>
-                        <span style="width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: white; animation: spin 1s linear infinite;"></span>
-                    </span>
-                `;
             } else {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Trimite rezervarea';
+                // Regular booking period
+                paymentLink.href = PAYMENT_CONFIG.regularBooking.link;
+                currentPrice.textContent = PAYMENT_CONFIG.regularBooking.price;
+                priceTitle.textContent = 'Tarif Regular';
+                
+                priceNote.innerHTML = `
+                    <p><strong>Perioada de early booking s-a încheiat</strong></p>
+                    <p>Preț actual: <strong>240 RON / bilet</strong></p>
+                    <p class="event-reminder">Evenimentul este pe <strong>9 octombrie 2025</strong></p>
+                `;
             }
+            
+            // Security: Add additional checks to prevent manipulation
+            Object.freeze(PAYMENT_CONFIG);
+            
+            console.log(`💳 Payment system updated - ${isEarlyBooking ? 'Early' : 'Regular'} booking active`);
         }
         
-        // Form submission
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Countdown timer for early booking deadline
+        function initCountdown() {
+            const countdownElement = document.createElement('div');
+            countdownElement.className = 'countdown-timer';
+            countdownElement.style.cssText = `
+                background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+                color: white;
+                padding: 1rem;
+                border-radius: 10px;
+                margin-top: 1rem;
+                text-align: center;
+                font-weight: 600;
+            `;
             
-            // Remove existing messages
-            const existingMessages = document.querySelectorAll('.form-error, .form-success');
-            existingMessages.forEach(msg => msg.remove());
+            priceNote.appendChild(countdownElement);
             
-            // Validate form
-            const errors = validateForm();
+            function updateCountdown() {
+                const now = new Date();
+                const timeLeft = PAYMENT_CONFIG.earlyBooking.deadline - now;
+                
+                if (timeLeft <= 0) {
+                    updatePaymentInfo();
+                    return;
+                }
+                
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                
+                let countdownHTML = '<div style="font-size: 0.9rem; margin-bottom: 0.5rem;">⏰ Timp rămas pentru early booking:</div>';
+                countdownHTML += '<div style="display: flex; justify-content: center; gap: 1rem; font-size: 1.1rem;">';
+                
+                if (days > 0) {
+                    countdownHTML += `<div><strong>${days}</strong><br><small>zile</small></div>`;
+                }
+                countdownHTML += `
+                    <div><strong>${hours.toString().padStart(2, '0')}</strong><br><small>ore</small></div>
+                    <div><strong>${minutes.toString().padStart(2, '0')}</strong><br><small>min</small></div>
+                    <div><strong>${seconds.toString().padStart(2, '0')}</strong><br><small>sec</small></div>
+                `;
+                countdownHTML += '</div>';
+                
+                countdownElement.innerHTML = countdownHTML;
+            }
             
-            if (errors.length > 0) {
-                showErrors(errors);
+            updateCountdown();
+            const countdownInterval = setInterval(updateCountdown, 1000);
+            
+            // Clear interval when deadline is reached
+            setTimeout(() => {
+                clearInterval(countdownInterval);
+            }, PAYMENT_CONFIG.earlyBooking.deadline - new Date());
+        }
+        
+        // Add payment link security and analytics
+        paymentLink.addEventListener('click', function(e) {
+            // Security check - verify we're redirecting to correct domain
+            const allowedDomains = ['mpy.ro'];
+            const linkUrl = new URL(this.href);
+            
+            if (!allowedDomains.includes(linkUrl.hostname)) {
+                e.preventDefault();
+                console.error('🚨 Security: Unauthorized payment domain detected');
+                alert('Eroare de securitate: Link de plată invalid. Te rugăm să contactezi organizatorii.');
                 return;
             }
             
-            // Set loading state
-            setLoadingState(true);
+            // Track payment click
+            if (typeof gtag !== 'undefined') {
+                const now = new Date();
+                const isEarlyBooking = now < PAYMENT_CONFIG.earlyBooking.deadline;
+                const price = isEarlyBooking ? PAYMENT_CONFIG.earlyBooking.price : PAYMENT_CONFIG.regularBooking.price;
+                
+                gtag('event', 'payment_link_click', {
+                    event_category: 'ecommerce',
+                    event_label: isEarlyBooking ? 'early_booking' : 'regular_booking',
+                    value: price
+                });
+            }
             
-            // Simulate API call
+            console.log('💳 Redirecting to secure payment platform...');
+            
+            // Add visual feedback
+            const originalText = this.innerHTML;
+            this.innerHTML = `
+                <svg class="payment-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span class="payment-text">
+                    <span class="payment-main">Se deschide plata...</span>
+                    <span class="payment-sub">Redirecționare securizată</span>
+                </span>
+            `;
+            
             setTimeout(() => {
-                // Get form data
-                const formData = {
-                    name: document.getElementById('name').value.trim(),
-                    email: document.getElementById('email').value.trim(),
-                    phone: document.getElementById('phone').value.trim(),
-                    tickets: document.getElementById('tickets').value,
-                    timestamp: new Date().toISOString()
-                };
-                
-                // Log data (în producție ar fi trimis la server)
-                console.log('Booking data:', formData);
-                
-                // Save to localStorage for demo purposes
-                const bookings = JSON.parse(localStorage.getItem('bni_bookings') || '[]');
-                bookings.push(formData);
-                localStorage.setItem('bni_bookings', JSON.stringify(bookings));
-                
-                // Show success
-                showSuccess();
-                
-                // Track successful booking (pentru analytics)
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'booking_submitted', {
-                        event_category: 'form',
-                        event_label: 'recolta_oportunități',
-                        value: 180
-                    });
-                }
-                
-            }, 2000); // 2 second delay to simulate network request
+                this.innerHTML = originalText;
+            }, 3000);
         });
         
-        // Real-time validation
-        const inputs = form.querySelectorAll('input[required]');
-        inputs.forEach(input => {
-            input.addEventListener('blur', function() {
-                const errors = validateForm();
-                const fieldErrors = errors.filter(error => 
-                    error.toLowerCase().includes(this.getAttribute('id'))
-                );
-                
-                // Add visual feedback
-                if (fieldErrors.length > 0) {
-                    this.style.borderColor = '#f44336';
-                } else {
-                    this.style.borderColor = '#4caf50';
-                }
-            });
-            
-            input.addEventListener('focus', function() {
-                this.style.borderColor = '#FF6B35';
-            });
-        });
+        // Initialize payment system
+        updatePaymentInfo();
+        
+        // Check for updates every minute (in case user keeps page open during deadline)
+        setInterval(updatePaymentInfo, 60000);
+        
+        console.log('💳 Payment system initialized successfully');
     }
+
     
     // ==================== UTILITY FUNCTIONS ====================
     
@@ -594,7 +572,7 @@ document.addEventListener('DOMContentLoaded', function() {
         initSmoothScroll();
         initHeader();
         initScrollAnimations();
-        initBookingForm();
+        initPaymentSystem();
         initAnalytics();
         initEasterEggs();
         initSectionNavigation();
