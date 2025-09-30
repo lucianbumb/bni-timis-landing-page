@@ -17,8 +17,11 @@
     <meta property="og:type" content="event">
     <meta property="og:title" content="Recolta de Oportunități - BNI Timiș | 9 Octombrie 2025">
     <meta property="og:description" content="Vino la cel mai important eveniment de networking din Timiș! BNI Phoenix te invită la 'Recolta de Oportunități' - o seară în care socializarea nu e small talk, ci investiție. 9 octombrie 2025, ora 18:30, Valery - Moșnița Nouă. Early booking: 180 lei.">
-    <meta property="og:image" content="./images/bni-phoenix.png">
-    <meta property="og:image:alt" content="BNI Phoenix Timișoara - Recolta de Oportunități">
+    <!-- Updated share image for invitation -->
+    <meta property="og:image" content="./images/invitatie_250x250.jpg">
+    <meta property="og:image:alt" content="Invitație Recolta de Oportunități - BNI Phoenix Timișoara">
+    <meta property="og:image:width" content="250">
+    <meta property="og:image:height" content="250">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://special-guest.net">
@@ -39,8 +42,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Recolta de Oportunități - BNI Timiș | 9 Octombrie 2025">
     <meta name="twitter:description" content="Cel mai important eveniment de networking din Timiș! 9 octombrie 2025, ora 18:30, Valery - Moșnița Nouă. Early booking: 180 lei.">
-    <meta name="twitter:image" content="./images/bni-phoenix.png">
-    <meta name="twitter:image:alt" content="BNI Phoenix Timișoara - Recolta de Oportunități">
+    <meta name="twitter:image" content="./images/invitatie_250x250.jpg">
+    <meta name="twitter:image:alt" content="Invitație Recolta de Oportunități - BNI Phoenix Timișoara">
     <meta name="twitter:site" content="@BNITimis">
     <meta name="twitter:creator" content="@BNIPhoenix">
     
@@ -332,25 +335,35 @@
     <section class="booking-section" id="booking">
         <div class="container">
             <div class="booking-content">
-                <div class="booking-header">
-                    <div class="section-header">
-                        <h2 class="section-title">Rezervă-ți locul acum</h2>
-                    <p class="booking-subtitle">Oricine poate participa. 
-                        Tot ce ai nevoie este curaj: rezervă, ia-ți cărțile de vizită și vino.</p>
-                        </div>
+                <!-- Child 1: Header Title -->
+                <div class="header-title">
+                    <h2 class="section-title">Rezervă-ți locul acum</h2>
+                    <p class="booking-subtitle">Oricine poate participa. Tot ce ai nevoie este curaj: rezervă, ia-ți cărțile de vizită și vino.</p>
+                </div>
+                <!-- Child 2: Payment Info (grid) -->
+                <div class="payment-info">
                     <div class="booking-instructions">
                         <p class="booking-explanation">
-                            Pentru a cumpăra biletul, apasă pe butonul "Plătește cu Netopia" de mai jos. 
-                            Vei fi redirecționat către platforma securizată Netopia unde poți plăti cu cardul 
-                            sau prin transfer bancar. După finalizarea plății, vei primi automat confirmarea 
-                            și biletul pe email. <strong>Ne vedem pe 9 octombrie la Valery - Moșnița Nouă!</strong>
+                            Pentru a cumpăra biletul, apasă pe butonul "Plătește cu Netopia". Vei fi redirecționat către platforma securizată Netopia unde poți plăti cu cardul sau prin transfer bancar. După finalizarea plății, vei primi confirmarea și biletul pe email. <strong>Ne vedem pe 9 octombrie la Valery - Moșnița Nouă!</strong>
                         </p>
+                        <a id="paymentLink" href="https://mpy.ro/7q3g5nght?language=ro" class="btn btn-payment" target="_blank" rel="noopener noreferrer" aria-label="Plată online securizată Netopia">
+                            <svg class="payment-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                                <line x1="2" y1="10" x2="22" y2="10" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            <span class="payment-text">
+                                <span class="payment-main">Plătește cu Netopia</span>
+                                <span class="payment-sub">Securizat și rapid</span>
+                            </span>
+                        </a>
+                        <noscript>
+                            <p style="margin-top:1rem;font-size:0.85rem;color:#a00;text-align:center">Activează JavaScript pentru actualizarea automată a prețului. Fără JS folosește: <br>
+                                <a href="https://mpy.ro/7q3g5nght?language=ro" target="_blank" rel="noopener" style="text-decoration:underline;color:var(--primary-red)">Link plată (early booking)</a>
+                            </p>
+                        </noscript>
                     </div>
-                </div>
-                
-                <div class="payment-container">
-                    <div class="payment-info">
-                        <div class="pricing-card">
+                    <div class="payment-cta">
+                        <div class="price-box">
                             <div class="price-header">
                                 <h3 id="priceTitle">Early Booking</h3>
                                 <div class="price-amount">
@@ -359,53 +372,31 @@
                                     <span class="period">/ bilet</span>
                                 </div>
                             </div>
-                            <div class="price-features">
-                                <ul>
-                                    <li>✓ Acces complet la eveniment</li>
-                                    <li>✓ Networking cu antreprenori</li>
-                                    <li>✓ Cocktail și aperitive</li>
-                                    <li>✓ Materiale BNI exclusive</li>
-                                </ul>
-                            </div>
                             <div class="price-note" id="priceNote">
                                 <p>Preț valabil până pe <strong>7 octombrie 2025, 23:59</strong></p>
                                 <p class="countdown-note">După această dată: <strong>240 RON / bilet</strong></p>
                             </div>
                         </div>
-                        
-                        <div class="payment-action">
-                            <a href="#" id="paymentLink" class="btn btn-payment" target="_blank" rel="noopener">
-                                <svg class="payment-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
-                                    <line x1="2" y1="10" x2="22" y2="10" stroke="currentColor" stroke-width="2"/>
+                        <div class="security-badges">
+                            <div class="security-item">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/>
+                                    <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="2"/>
                                 </svg>
-                                <span class="payment-text">
-                                    <span class="payment-main">Plătește cu Netopia</span>
-                                    <span class="payment-sub">Securizat și rapid</span>
-                                </span>
-                            </a>
-                            
-                            <div class="security-badges">
-                                <div class="security-item">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/>
-                                        <path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="2"/>
-                                    </svg>
-                                    <span>Plată securizată</span>
-                                </div>
-                                <div class="security-item">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2"/>
-                                    </svg>
-                                    <span>Card sau transfer</span>
-                                </div>
-                                <div class="security-item">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2"/>
-                                        <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2"/>
-                                    </svg>
-                                    <span>Confirmare instant</span>
-                                </div>
+                                <span>Plată securizată</span>
+                            </div>
+                            <div class="security-item">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>Card sau transfer</span>
+                            </div>
+                            <div class="security-item">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2"/>
+                                    <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>Confirmare instant</span>
                             </div>
                         </div>
                     </div>
