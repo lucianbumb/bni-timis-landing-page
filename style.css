@@ -828,7 +828,24 @@ section.hero{
 }
 .footer-logo-img {
     width: auto;
-    filter: brightness(0) invert(1) opacity(0.7)  drop-shadow(0 0 5px orange);
+}
+.footer-logo{
+    display: grid;
+    grid-template-columns: repeat(auto);
+    align-items: center;
+    justify-content: center;
+    img{
+        max-width: 100%;
+        height: 50px;
+        width: auto;
+        margin-bottom: var(--spacing-sm);
+        margin-top: var(--spacing-sm);
+        margin-inline:auto;
+    }
+    svg{
+        width: 150px;
+        height: auto;
+    }
 }
 .bni{
     width: 250px;
@@ -1441,5 +1458,20 @@ html {
 
     .footer-social{
         display: none;
+    }
+}
+
+.contact{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    a{
+        color: var(--primary-red);
+        font-weight: 600;
+        text-decoration: none;
     }
 }
