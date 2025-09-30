@@ -102,6 +102,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==================== PAYMENT SYSTEM ====================
     
     function initPaymentSystem() {
+        console.log('🚀 Initializing payment system...');
+        
         // Payment configuration
         const PAYMENT_CONFIG = {
             earlyBooking: {
@@ -121,8 +123,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const priceTitle = document.getElementById('priceTitle');
         const priceNote = document.getElementById('priceNote');
         
+        console.log('🔍 Payment elements:', {
+            paymentLink: !!paymentLink,
+            currentPrice: !!currentPrice,
+            priceTitle: !!priceTitle,
+            priceNote: !!priceNote
+        });
+        
         if (!paymentLink || !currentPrice || !priceTitle || !priceNote) {
-            console.error('Payment elements not found');
+            console.error('❌ Payment elements not found:', {
+                paymentLink: paymentLink ? 'found' : 'missing',
+                currentPrice: currentPrice ? 'found' : 'missing',
+                priceTitle: priceTitle ? 'found' : 'missing',
+                priceNote: priceNote ? 'found' : 'missing'
+            });
             return;
         }
         
@@ -137,6 +151,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentPrice.textContent = PAYMENT_CONFIG.earlyBooking.price;
                 priceTitle.textContent = 'Early Booking';
                 
+                console.log('💳 Early booking link set:', PAYMENT_CONFIG.earlyBooking.link);
+                
                 priceNote.innerHTML = `
                     <p>Preț valabil până pe <strong>7 octombrie 2025, 23:59</strong></p>
                     <p class="countdown-note">După această dată: <strong>240 RON / bilet</strong></p>
@@ -150,6 +166,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 paymentLink.href = PAYMENT_CONFIG.regularBooking.link;
                 currentPrice.textContent = PAYMENT_CONFIG.regularBooking.price;
                 priceTitle.textContent = 'Tarif Regular';
+                
+                console.log('💳 Regular booking link set:', PAYMENT_CONFIG.regularBooking.link);
                 
                 priceNote.innerHTML = `
                     <p><strong>Perioada de early booking s-a încheiat</strong></p>
@@ -221,15 +239,30 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Add payment link security and analytics
         paymentLink.addEventListener('click', function(e) {
+            console.log('🔍 Payment button clicked, href:', this.href);
+            
             // Security check - verify we're redirecting to correct domain
             const allowedDomains = ['mpy.ro'];
-            const linkUrl = new URL(this.href);
             
-            if (!allowedDomains.includes(linkUrl.hostname)) {
+            try {
+                const linkUrl = new URL(this.href);
+                console.log('🔍 Payment URL parsed:', {
+                    hostname: linkUrl.hostname,
+                    href: linkUrl.href,
+                    allowed: allowedDomains.includes(linkUrl.hostname)
+                });
+                
+                if (!allowedDomains.includes(linkUrl.hostname)) {
+                    e.preventDefault();
+                    console.error('🚨 Security: Unauthorized payment domain detected:', linkUrl.hostname);
+                    alert('Eroare de securitate: Link de plată invalid. Te rugăm să contactezi organizatorii.');
+                    return false;
+                }
+            } catch (error) {
+                console.error('🚨 Invalid payment URL:', this.href, error);
                 e.preventDefault();
-                console.error('🚨 Security: Unauthorized payment domain detected');
-                alert('Eroare de securitate: Link de plată invalid. Te rugăm să contactezi organizatorii.');
-                return;
+                alert('Link de plată invalid. Te rugăm să contactezi organizatorii.');
+                return false;
             }
             
             // Track payment click
@@ -245,24 +278,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
             
-            console.log('💳 Redirecting to secure payment platform...');
+            console.log('✅ Payment link approved, redirecting to:', this.href);
             
-            // Add visual feedback
+            // Add visual feedback (non-blocking)
             const originalText = this.innerHTML;
-            this.innerHTML = `
-                <svg class="payment-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                    <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2"/>
-                </svg>
-                <span class="payment-text">
-                    <span class="payment-main">Se deschide plata...</span>
-                    <span class="payment-sub">Redirecționare securizată</span>
-                </span>
-            `;
+            const button = this;
             
             setTimeout(() => {
-                this.innerHTML = originalText;
-            }, 3000);
+                button.innerHTML = `
+                    <svg class="payment-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span class="payment-text">
+                        <span class="payment-main">Se deschide plata...</span>
+                        <span class="payment-sub">Redirecționare securizată</span>
+                    </span>
+                `;
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 3000);
+            }, 100);
+            
+            // Allow default behavior (navigation)
+            return true;
         });
         
         // Initialize payment system
