@@ -237,35 +237,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }, PAYMENT_CONFIG.earlyBooking.deadline - new Date());
         }
         
-        // Add payment link security and analytics
+        // Add payment link analytics (simplified - no blocking)
         paymentLink.addEventListener('click', function(e) {
-            console.log('🔍 Payment button clicked, href:', this.href);
+            console.log('� Payment button clicked, redirecting to:', this.href);
             
-            // Security check - verify we're redirecting to correct domain
-            const allowedDomains = ['mpy.ro'];
-            
-            try {
-                const linkUrl = new URL(this.href);
-                console.log('🔍 Payment URL parsed:', {
-                    hostname: linkUrl.hostname,
-                    href: linkUrl.href,
-                    allowed: allowedDomains.includes(linkUrl.hostname)
-                });
-                
-                if (!allowedDomains.includes(linkUrl.hostname)) {
-                    e.preventDefault();
-                    console.error('🚨 Security: Unauthorized payment domain detected:', linkUrl.hostname);
-                    alert('Eroare de securitate: Link de plată invalid. Te rugăm să contactezi organizatorii.');
-                    return false;
-                }
-            } catch (error) {
-                console.error('🚨 Invalid payment URL:', this.href, error);
-                e.preventDefault();
-                alert('Link de plată invalid. Te rugăm să contactezi organizatorii.');
-                return false;
-            }
-            
-            // Track payment click
+            // Track payment click for analytics
             if (typeof gtag !== 'undefined') {
                 const now = new Date();
                 const isEarlyBooking = now < PAYMENT_CONFIG.earlyBooking.deadline;
@@ -277,32 +253,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     value: price
                 });
             }
-            
-            console.log('✅ Payment link approved, redirecting to:', this.href);
-            
-            // Add visual feedback (non-blocking)
-            const originalText = this.innerHTML;
-            const button = this;
-            
-            setTimeout(() => {
-                button.innerHTML = `
-                    <svg class="payment-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                        <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2"/>
-                    </svg>
-                    <span class="payment-text">
-                        <span class="payment-main">Se deschide plata...</span>
-                        <span class="payment-sub">Redirecționare securizată</span>
-                    </span>
-                `;
-                
-                setTimeout(() => {
-                    button.innerHTML = originalText;
-                }, 3000);
-            }, 100);
-            
-            // Allow default behavior (navigation)
-            return true;
         });
         
         // Initialize payment system
