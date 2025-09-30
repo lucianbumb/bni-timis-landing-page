@@ -675,6 +675,7 @@ section.hero{
     overflow: hidden;
     min-width: 280px;
     justify-content: center;
+    margin-top: 1rem;
 }
 
 .btn-payment:hover {

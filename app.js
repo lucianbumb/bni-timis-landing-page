@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, observerOptions);
         
         // Observe elements for animation
-        const animateElements = document.querySelectorAll('.benefit-card, .detail-card, .promo-content, .payment-container');
+    const animateElements = document.querySelectorAll('.benefit-card, .detail-card, .promo-content, .price-box, .payment-cta, .booking-explanation');
         animateElements.forEach(element => {
             observer.observe(element);
         });
