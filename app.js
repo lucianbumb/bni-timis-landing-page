@@ -108,11 +108,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const PAYMENT_CONFIG = {
             earlyBooking: {
                 price: 180,
-                link: 'https://mpy.ro/7q3g5nght?language=ro',
+                link: 'https://mpy.ro/7q3g5nhht?language=ro',
                 deadline: new Date('2025-10-07T23:59:00+03:00') // 7 Oct 2025, 23:59 Romanian time
             },
             regularBooking: {
-                price: 240,
+                price: 180,
                 link: 'https://mpy.ro/7q3g5nhht?language=ro'
             }
         };
@@ -154,8 +154,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('💳 Early booking link set:', PAYMENT_CONFIG.earlyBooking.link);
                 
                 priceNote.innerHTML = `
-                    <p>Preț valabil până pe <strong>7 octombrie 2025, 23:59</strong></p>
-                    <p class="countdown-note">După această dată: <strong>240 RON / bilet</strong></p>
+                    <p><strong>Preț special: 180 RON / bilet</strong></p>
+                    <p class="countdown-note">Locuri limitate!</p>
                 `;
                 
                 // Add countdown
@@ -165,13 +165,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Regular booking period
                 paymentLink.href = PAYMENT_CONFIG.regularBooking.link;
                 currentPrice.textContent = PAYMENT_CONFIG.regularBooking.price;
-                priceTitle.textContent = 'Tarif Regular';
+                priceTitle.textContent = 'Tarif Special';
                 
                 console.log('💳 Regular booking link set:', PAYMENT_CONFIG.regularBooking.link);
                 
                 priceNote.innerHTML = `
-                    <p><strong>Perioada de early booking s-a încheiat</strong></p>
-                    <p>Preț actual: <strong>240 RON / bilet</strong></p>
+                    <p><strong>Preț special: 180 RON / bilet</strong></p>
                     <p class="event-reminder">Evenimentul este pe <strong>9 octombrie 2025</strong></p>
                 `;
             }
